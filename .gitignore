@@ -1,0 +1,36 @@
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+/be/src/main/resources/application.properties
+
+# Java / Maven
+**/target/
+*.class
+*.jar
+*.war
+
+# Node / Vite
+**/node_modules/
+**/dist/
+**/.vite/
+.pnpm-store/
+*.tsbuildinfo
+
+# IDE and OS files
+.git-legacy-backup/
+.git-nested-backups/
+**/.idea/
+**/.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Runtime data
+**/uploads/
+*.log
+logs/
+
+# Test and coverage output
+**/coverage/
+**/.nyc_output/

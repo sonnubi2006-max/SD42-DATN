@@ -1,0 +1,12 @@
+package com.base.enums;
+
+public enum EmailType {
+    ACCOUNT_CREATED,
+    ORDER_CONFIRMATION,
+    OTP,
+    FORGOT_PASSWORD,
+    SHIPPING_UPDATE,
+    PROMOTION,
+    PERSONAL_COUPON_ASSIGNED,
+    PERSONAL_COUPON_UNAVAILABLE
+}

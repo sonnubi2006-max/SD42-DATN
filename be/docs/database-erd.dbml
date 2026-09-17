@@ -1,0 +1,546 @@
+
+
+Table users {
+  user_id bigint [pk, increment, not null]
+  username nvarchar(255) [not null, unique]
+  password nvarchar(255) [not null]
+  email nvarchar(255) [not null, unique]
+  phone nvarchar(255) [unique]
+  full_name nvarchar(255)
+  avatar nvarchar(255)
+  gender nvarchar(255)
+  cccd nvarchar(255) [unique]
+  birthday date
+  province nvarchar(100)
+  district nvarchar(100)
+  ward nvarchar(100)
+  street_address nvarchar(255)
+  status nvarchar(255) [not null]
+  role nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table customers {
+  customer_id bigint [pk, increment, not null]
+  email nvarchar(255) [not null, unique]
+  password nvarchar(255)
+  full_name nvarchar(255)
+  phone nvarchar(255)
+  gender nvarchar(255)
+  birthday date
+  avatar nvarchar(255)
+  role nvarchar(255) [not null]
+  source nvarchar(255) [not null]
+  email_subscribed bit [not null]
+  status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table addresses {
+  address_id bigint [pk, increment, not null]
+  customer_id bigint [not null]
+  receiver_name nvarchar(100)
+  receiver_phone nvarchar(255)
+  province nvarchar(100)
+  district nvarchar(100)
+  ward nvarchar(100)
+  province_name nvarchar(100)
+  district_name nvarchar(100)
+  ward_name nvarchar(100)
+  street_address nvarchar(255)
+  note nvarchar(max)
+  is_default bit [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table password_reset_tokens {
+  id bigint [pk, increment, not null]
+  token nvarchar(255) [not null, unique]
+  email nvarchar(255) [not null]
+  account_type nvarchar(255) [not null]
+  expiry_date datetime2(6) [not null]
+  used bit [not null]
+}
+
+Table refresh_tokens {
+  id bigint [pk, increment, not null]
+  user_id bigint
+  customer_id bigint
+  token nvarchar(255) [not null, unique]
+  expiry_date datetime2(6) [not null]
+}
+
+Table categories {
+  category_id bigint [pk, increment, not null]
+  category_name nvarchar(255) [not null]
+  category_code nvarchar(50)
+  category_description nvarchar(255)
+  category_status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table brands {
+  brand_id bigint [pk, increment, not null]
+  brand_name nvarchar(255) [not null]
+  brand_code nvarchar(50)
+  brand_logo nvarchar(255)
+  brand_status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table products {
+  product_id bigint [pk, increment, not null]
+  product_name nvarchar(255) [not null]
+  product_slug nvarchar(255) [not null, unique]
+  product_code nvarchar(255) [not null, unique]
+  description nvarchar(max)
+  average_rating decimal(3,2) [not null]
+  category_id bigint
+  brand_id bigint
+  status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table product_variants {
+  variant_id bigint [pk, increment, not null]
+  variant_code nvarchar(255) [not null, unique]
+  product_id bigint [not null]
+  barcode nvarchar(255) [unique]
+  size nvarchar(25)
+  color nvarchar(25)
+  price decimal(15,2)
+  cost_price decimal(15,2) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+  status nvarchar(255) [not null]
+  stock_quantity int [not null]
+
+  indexes {
+    (product_id, size, color) [unique]
+  }
+}
+
+Table product_images {
+  image_id bigint [pk, increment, not null]
+  product_id bigint
+  variant_id bigint [unique]
+  image_url nvarchar(255) [not null]
+  thumbnail bit [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table carts {
+  cart_id bigint [pk, increment, not null]
+  customer_id bigint [not null, unique]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table cart_items {
+  cart_item_id bigint [pk, increment, not null]
+  cart_id bigint [not null]
+  variant_id bigint [not null]
+  quantity int [not null]
+  price decimal(38,2)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+
+  indexes {
+    (cart_id, variant_id) [unique]
+  }
+}
+
+Table wishlists {
+  wishlist_id bigint [pk, increment, not null]
+  customer_id bigint [not null]
+  variant_id bigint [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+
+  indexes {
+    (customer_id, variant_id) [unique]
+  }
+}
+
+Table coupons {
+  coupon_id bigint [pk, increment, not null]
+  code nvarchar(50) [not null, unique]
+  description nvarchar(255) [not null]
+  discount_type nvarchar(255) [not null]
+  discount_value decimal(15,2) [not null]
+  max_discount_amount decimal(15,2)
+  min_order_value decimal(15,2)
+  total_quantity int
+  used_quantity int [not null]
+  max_uses_per_user int
+  start_date datetime2(6)
+  end_date datetime2(6)
+  status nvarchar(255) [not null]
+  coupon_type nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table coupon_customers {
+  coupon_id bigint [not null]
+  customer_id bigint [not null]
+
+  indexes {
+    (coupon_id, customer_id) [pk]
+  }
+}
+
+Table promotions {
+  promotion_id bigint [pk, increment, not null]
+  name nvarchar(255) [not null]
+  description nvarchar(max)
+  discount_type nvarchar(255) [not null]
+  discount_value decimal(15,2) [not null]
+  max_discount_amount decimal(15,2)
+  apply_type nvarchar(255) [not null]
+  start_date datetime2(6) [not null]
+  end_date datetime2(6) [not null]
+  status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table promotion_categories {
+  promotion_id bigint [not null]
+  category_id bigint [not null]
+
+  indexes {
+    (promotion_id, category_id) [pk]
+  }
+}
+
+Table promotion_products {
+  promotion_id bigint [not null]
+  product_id bigint [not null]
+
+  indexes {
+    (promotion_id, product_id) [pk]
+  }
+}
+
+Table promotion_variants {
+  promotion_id bigint [not null]
+  variant_id bigint [not null]
+
+  indexes {
+    (promotion_id, variant_id) [pk]
+  }
+}
+
+Table orders {
+  order_id bigint [pk, increment, not null]
+  customer_id bigint
+  coupon_id bigint
+  coupon_code nvarchar(255)
+  staff_id bigint
+  order_code nvarchar(255) [not null, unique]
+  order_type nvarchar(255)
+  order_date datetime2(6) [not null]
+  total_amount decimal(15,2)
+  discount_amount decimal(15,2) [not null]
+  shipping_fee decimal(15,2) [not null]
+  final_amount decimal(15,2)
+  payment_method nvarchar(255)
+  order_status nvarchar(255) [not null]
+  note nvarchar(max)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table order_address {
+  order_address_id bigint [pk, increment, not null]
+  receiver_name nvarchar(100)
+  receiver_phone nvarchar(255)
+  province nvarchar(100)
+  district nvarchar(100)
+  ward nvarchar(100)
+  detail_address nvarchar(255)
+  note nvarchar(max)
+  order_id bigint [not null, unique]
+}
+
+Table order_details {
+  order_detail_id bigint [pk, increment, not null]
+  order_id bigint [not null]
+  variant_id bigint
+  product_name nvarchar(255) [not null]
+  image_url nvarchar(255)
+  size nvarchar(25) [not null]
+  color nvarchar(25) [not null]
+  quantity int [not null]
+  price decimal(15,2) [not null]
+  sale_price decimal(15,2)
+  subtotal decimal(15,2) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table order_transaction_logs {
+  log_id bigint [pk, increment, not null]
+  order_id bigint [not null]
+  previous_status nvarchar(255)
+  current_status nvarchar(255) [not null]
+  action nvarchar(255)
+  note nvarchar(max)
+  created_by nvarchar(255)
+  created_at datetime2(6)
+}
+
+Table payments {
+  payment_id bigint [pk, increment, not null]
+  order_id bigint [not null, unique]
+  amount decimal(15,2) [not null]
+  payment_method nvarchar(255)
+  payment_status nvarchar(255) [not null]
+  transaction_code nvarchar(255)
+  bank_code nvarchar(20)
+  card_type nvarchar(20)
+  vnp_response_code nvarchar(10)
+  paid_at datetime2(6)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table reservations {
+  reservation_id bigint [pk, increment, not null]
+  order_id bigint [not null]
+  variant_id bigint
+  quantity int [not null]
+  status nvarchar(255) [not null]
+  expired_at datetime2(6)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table reviews {
+  review_id bigint [pk, increment, not null]
+  customer_id bigint [not null]
+  product_id bigint [not null]
+  variant_id bigint
+  order_detail_id bigint [unique]
+  rating int [not null]
+  comment nvarchar(max)
+  size_feedback nvarchar(max)
+  status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table review_images {
+  review_image_id bigint [pk, increment, not null]
+  review_id bigint [not null]
+  image_url nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table return_requests {
+  return_id bigint [pk, increment, not null]
+  order_id bigint [not null]
+  order_code nvarchar(255) [not null]
+  customer_name nvarchar(55) [not null]
+  customer_phone nvarchar(255)
+  refund_amount decimal(15,2) [not null]
+  status nvarchar(255) [not null]
+  return_type nvarchar(255) [not null]
+  note nvarchar(max)
+  reject_reason nvarchar(max)
+  images nvarchar(max)
+  processed_images nvarchar(max)
+  created_by bigint
+  processed_by bigint
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table return_items {
+  return_item_id bigint [pk, increment, not null]
+  return_id bigint [not null]
+  variant_id bigint [not null]
+  product_id bigint
+  product_name nvarchar(255) [not null]
+  sku nvarchar(255)
+  color nvarchar(25)
+  size nvarchar(25)
+  quantity int [not null]
+  damaged_quantity int
+  original_price decimal(15,2) [not null]
+  refund_price decimal(15,2) [not null]
+  reason varchar(max)
+}
+
+Table exchange_items {
+  exchange_item_id bigint [pk, increment, not null]
+  return_id bigint [not null]
+  new_variant_id bigint [not null]
+  new_product_name nvarchar(255) [not null]
+  new_color nvarchar(25)
+  new_size nvarchar(25)
+  new_quantity int [not null]
+  price_difference decimal(15,2) [not null]
+}
+
+Table conversations {
+  conversation_id bigint [pk, increment, not null]
+  customer_id bigint [not null]
+  staff_id bigint
+  status nvarchar(255) [not null]
+  title nvarchar(255) [not null]
+  last_message varchar(max)
+  last_message_at datetime2(6)
+  unread_count_staff int [not null]
+  unread_count_user int [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table messages {
+  message_id bigint [pk, increment, not null]
+  conversation_id bigint [not null]
+  customer_id bigint
+  user_id bigint
+  message_type nvarchar(255) [not null]
+  message_content varchar(max)
+  image_url nvarchar(255)
+  deleted bit [not null]
+  is_read bit [not null]
+  read_at datetime2(6)
+  sent_at datetime2(6)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table post_categories {
+  post_category_id bigint [pk, increment, not null]
+  category_name nvarchar(255) [not null, unique]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table post_tags {
+  tag_id bigint [pk, increment, not null]
+  tag_name nvarchar(255) [not null, unique]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table posts {
+  post_id bigint [pk, increment, not null]
+  author_id bigint [not null]
+  title nvarchar(255) [not null]
+  slug nvarchar(255) [not null, unique]
+  thumbnail nvarchar(255)
+  summary nvarchar(max)
+  content nvarchar(max)
+  status nvarchar(255) [not null]
+  view_count int [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table post_category_mapping {
+  post_id bigint [not null]
+  post_category_id bigint [not null]
+
+  indexes {
+    (post_id, post_category_id) [pk]
+  }
+}
+
+Table post_tag_mapping {
+  post_id bigint [not null]
+  tag_id bigint [not null]
+
+  indexes {
+    (post_id, tag_id) [pk]
+  }
+}
+
+Table banners {
+  banner_id bigint [pk, increment, not null]
+  title nvarchar(255) [not null]
+  image_url nvarchar(255) [not null]
+  redirect_url nvarchar(255)
+  is_active bit [not null]
+  start_date datetime2(6)
+  end_date datetime2(6)
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Table contacts {
+  contact_id bigint [pk, increment, not null]
+  full_name nvarchar(255) [not null]
+  email nvarchar(255) [not null]
+  subject nvarchar(255)
+  message varchar(max)
+  status nvarchar(255) [not null]
+  created_at datetime2(6)
+  updated_at datetime2(6)
+}
+
+Ref: addresses.customer_id > customers.customer_id
+Ref: refresh_tokens.user_id > users.user_id
+Ref: refresh_tokens.customer_id > customers.customer_id
+Ref: products.category_id > categories.category_id
+Ref: products.brand_id > brands.brand_id
+Ref: product_variants.product_id > products.product_id
+Ref: product_images.product_id > products.product_id
+Ref: product_images.variant_id > product_variants.variant_id
+Ref: carts.customer_id > customers.customer_id
+Ref: cart_items.cart_id > carts.cart_id
+Ref: cart_items.variant_id > product_variants.variant_id
+Ref: wishlists.customer_id > customers.customer_id
+Ref: wishlists.variant_id > product_variants.variant_id
+Ref: coupon_customers.coupon_id > coupons.coupon_id
+Ref: coupon_customers.customer_id > customers.customer_id
+Ref: promotion_categories.promotion_id > promotions.promotion_id
+Ref: promotion_categories.category_id > categories.category_id
+Ref: promotion_products.promotion_id > promotions.promotion_id
+Ref: promotion_products.product_id > products.product_id
+Ref: promotion_variants.promotion_id > promotions.promotion_id
+Ref: promotion_variants.variant_id > product_variants.variant_id
+Ref: orders.customer_id > customers.customer_id
+Ref: orders.coupon_id > coupons.coupon_id
+Ref: orders.staff_id > users.user_id
+Ref: order_address.order_id > orders.order_id
+Ref: order_details.order_id > orders.order_id
+Ref: order_details.variant_id > product_variants.variant_id
+Ref: order_transaction_logs.order_id > orders.order_id
+Ref: payments.order_id > orders.order_id
+Ref: reservations.order_id > orders.order_id
+Ref: reservations.variant_id > product_variants.variant_id
+Ref: reviews.customer_id > customers.customer_id
+Ref: reviews.product_id > products.product_id
+Ref: reviews.variant_id > product_variants.variant_id
+Ref: reviews.order_detail_id > order_details.order_detail_id
+Ref: review_images.review_id > reviews.review_id
+Ref: return_requests.order_id > orders.order_id
+Ref: return_requests.created_by > users.user_id
+Ref: return_requests.processed_by > users.user_id
+Ref: return_items.return_id > return_requests.return_id
+Ref: return_items.variant_id > product_variants.variant_id
+Ref: exchange_items.return_id > return_requests.return_id
+Ref: exchange_items.new_variant_id > product_variants.variant_id
+Ref: conversations.customer_id > customers.customer_id
+Ref: conversations.staff_id > users.user_id
+Ref: messages.conversation_id > conversations.conversation_id
+Ref: messages.customer_id > customers.customer_id
+Ref: messages.user_id > users.user_id
+Ref: posts.author_id > users.user_id
+Ref: post_category_mapping.post_id > posts.post_id
+Ref: post_category_mapping.post_category_id > post_categories.post_category_id
+Ref: post_tag_mapping.post_id > posts.post_id
+Ref: post_tag_mapping.tag_id > post_tags.tag_id

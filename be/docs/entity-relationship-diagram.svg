@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1100" viewBox="0 0 1900 1100">
+  <defs>
+    <style>
+      .bg{fill:#fff}
+      .box{fill:#fff;stroke:#555;stroke-width:1.5}
+      .hub{fill:#08a33b;stroke:#078c34;stroke-width:1.5}
+      .txt{font:600 14px Arial,sans-serif;fill:#222;text-anchor:middle;dominant-baseline:middle}
+      .hubtxt{font:700 14px Arial,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}
+      .rel{fill:none;stroke:#555;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+      .card{font:700 11px Arial,sans-serif;fill:#333;paint-order:stroke;stroke:#fff;stroke-width:3px}
+      .caption{font:700 18px Arial,sans-serif;fill:#333}
+      .note{font:13px Arial,sans-serif;fill:#666}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1900" height="1100"/>
+  <text class="caption" x="28" y="30">SƠ ĐỒ QUAN HỆ CÁC BẢNG</text>
+  <text class="note" x="28" y="52">Bảng nghiệp vụ chính được tô xanh • Ký hiệu: 1 = một, N = nhiều, 0..1 = không hoặc một</text>
+
+  <path class="rel" d="M165 105 H250 V160 H335"/>
+  <path class="rel" d="M165 165 H275 V160 H335"/>
+  <path class="rel" d="M165 225 H295 V160 H335"/>
+  <path class="rel" d="M165 285 H310 V160 H335"/>
+  <path class="rel" d="M465 160 H545"/>
+  <path class="rel" d="M465 160 H505 V245 H545"/>
+  <path class="rel" d="M465 160 H490 V330 H545"/>
+  <path class="rel" d="M675 245 H735"/>
+  <path class="rel" d="M675 245 H705 V405 H735"/>
+  <path class="rel" d="M675 245 H690 V485 H735"/>
+  <path class="rel" d="M675 245 H705 V565 H735"/>
+  <path class="rel" d="M675 330 H720 V245 H735"/>
+
+  <path class="rel" d="M865 245 H945"/>
+  <path class="rel" d="M865 405 H905 V245 H945"/>
+  <path class="rel" d="M865 485 H920 V245 H945"/>
+  <path class="rel" d="M865 565 H935 V245 H945"/>
+  <path class="rel" d="M1075 245 H1150"/>
+  <path class="rel" d="M1075 245 H1110 V325 H1150"/>
+  <path class="rel" d="M1075 245 H1095 V405 H1150"/>
+  <path class="rel" d="M1075 245 H1080 V485 H1150"/>
+  <path class="rel" d="M1075 245 H1100 V565 H1150"/>
+
+  <path class="rel" d="M1280 245 H1360"/>
+  <path class="rel" d="M1280 245 H1320 V325 H1360"/>
+  <path class="rel" d="M1280 245 H1305 V405 H1360"/>
+  <path class="rel" d="M1280 245 H1290 V485 H1360"/>
+  <path class="rel" d="M1490 245 H1565"/>
+  <path class="rel" d="M1490 245 H1530 V325 H1565"/>
+  <path class="rel" d="M1490 245 H1515 V405 H1565"/>
+  <path class="rel" d="M1490 245 H1500 V485 H1565"/>
+
+  <path class="rel" d="M1695 245 H1760"/>
+  <path class="rel" d="M1695 245 H1730 V325 H1760"/>
+  <path class="rel" d="M1695 245 H1715 V405 H1760"/>
+  <path class="rel" d="M1695 245 H1700 V485 H1760"/>
+  <path class="rel" d="M1625 270 V605 H1485"/>
+  <path class="rel" d="M1420 630 H1280"/>
+  <path class="rel" d="M1150 630 H1075 V680"/>
+  <path class="rel" d="M945 680 H865"/>
+  <path class="rel" d="M735 680 H675"/>
+  <path class="rel" d="M545 680 H465"/>
+
+  <path class="rel" d="M400 705 V785 H545"/>
+  <path class="rel" d="M675 785 H735"/>
+  <path class="rel" d="M675 785 H705 V865 H735"/>
+
+  <path class="rel" d="M1625 270 V785 H1490"/>
+  <path class="rel" d="M1360 785 H1280"/>
+  <path class="rel" d="M1360 785 H1320 V865 H1280"/>
+
+  <path class="rel" d="M945 785 H865"/>
+  <path class="rel" d="M945 785 H905 V865 H865"/>
+
+  <text class="card" x="238" y="153">1</text><text class="card" x="320" y="153">N</text>
+  <text class="card" x="477" y="153">1</text><text class="card" x="530" y="153">N</text>
+  <text class="card" x="686" y="238">1</text><text class="card" x="720" y="238">N</text>
+  <text class="card" x="877" y="238">N</text><text class="card" x="930" y="238">1</text>
+  <text class="card" x="1087" y="238">1</text><text class="card" x="1135" y="238">N</text>
+  <text class="card" x="1292" y="238">N</text><text class="card" x="1345" y="238">1</text>
+  <text class="card" x="1502" y="238">1</text><text class="card" x="1550" y="238">N</text>
+  <text class="card" x="1707" y="238">1</text><text class="card" x="1745" y="238">N</text>
+  <text class="card" x="687" y="778">1</text><text class="card" x="720" y="778">N</text>
+  <text class="card" x="1345" y="778">N</text><text class="card" x="1292" y="778">1</text>
+
+  <g>
+    <rect class="box" x="35" y="80" width="130" height="50"/><text class="txt" x="100" y="105">brand</text>
+    <rect class="box" x="35" y="140" width="130" height="50"/><text class="txt" x="100" y="165">category</text>
+    <rect class="box" x="35" y="200" width="130" height="50"/><text class="txt" x="100" y="225">product_image</text>
+    <rect class="box" x="35" y="260" width="130" height="50"/><text class="txt" x="100" y="285">wishlist</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="335" y="135" width="130" height="50"/><text class="hubtxt" x="400" y="160">product</text>
+    <rect class="box" x="545" y="135" width="130" height="50"/><text class="txt" x="610" y="160">promotion</text>
+    <rect class="hub" x="545" y="220" width="130" height="50"/><text class="hubtxt" x="610" y="245">product_variant</text>
+    <rect class="box" x="545" y="305" width="130" height="50"/><text class="txt" x="610" y="330">reservation</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="735" y="220" width="130" height="50"/><text class="hubtxt" x="800" y="245">order_detail</text>
+    <rect class="box" x="735" y="380" width="130" height="50"/><text class="txt" x="800" y="405">cart_item</text>
+    <rect class="box" x="735" y="460" width="130" height="50"/><text class="txt" x="800" y="485">return_item</text>
+    <rect class="box" x="735" y="540" width="130" height="50"/><text class="txt" x="800" y="565">exchange_item</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="945" y="220" width="130" height="50"/><text class="hubtxt" x="1010" y="245">orders</text>
+    <rect class="box" x="1150" y="220" width="130" height="50"/><text class="txt" x="1215" y="245">order_address</text>
+    <rect class="box" x="1150" y="300" width="130" height="50"/><text class="txt" x="1215" y="325">payment</text>
+    <rect class="box" x="1150" y="380" width="130" height="50"/><text class="txt" x="1215" y="405">transaction_log</text>
+    <rect class="box" x="1150" y="460" width="130" height="50"/><text class="txt" x="1215" y="485">address</text>
+    <rect class="hub" x="1150" y="540" width="130" height="50"/><text class="hubtxt" x="1215" y="565">return_request</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="1360" y="220" width="130" height="50"/><text class="hubtxt" x="1425" y="245">customer</text>
+    <rect class="box" x="1360" y="300" width="130" height="50"/><text class="txt" x="1425" y="325">cart</text>
+    <rect class="box" x="1360" y="380" width="130" height="50"/><text class="txt" x="1425" y="405">coupon</text>
+    <rect class="box" x="1360" y="460" width="130" height="50"/><text class="txt" x="1425" y="485">conversation</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="1565" y="220" width="130" height="50"/><text class="hubtxt" x="1630" y="245">user</text>
+    <rect class="box" x="1565" y="300" width="130" height="50"/><text class="txt" x="1630" y="325">message</text>
+    <rect class="box" x="1565" y="380" width="130" height="50"/><text class="txt" x="1630" y="405">refresh_token</text>
+    <rect class="box" x="1565" y="460" width="130" height="50"/><text class="txt" x="1630" y="485">password_reset</text>
+  </g>
+
+  <g>
+    <rect class="box" x="1760" y="220" width="120" height="50"/><text class="txt" x="1820" y="245">post</text>
+    <rect class="box" x="1760" y="300" width="120" height="50"/><text class="txt" x="1820" y="325">return_request</text>
+    <rect class="box" x="1760" y="380" width="120" height="50"/><text class="txt" x="1820" y="405">orders</text>
+    <rect class="box" x="1760" y="460" width="120" height="50"/><text class="txt" x="1820" y="485">conversation</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="1355" y="605" width="130" height="50"/><text class="hubtxt" x="1420" y="630">review</text>
+    <rect class="box" x="1150" y="605" width="130" height="50"/><text class="txt" x="1215" y="630">review_image</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="335" y="680" width="130" height="50"/><text class="hubtxt" x="400" y="705">return_request</text>
+    <rect class="box" x="545" y="760" width="130" height="50"/><text class="txt" x="610" y="785">return_item</text>
+    <rect class="box" x="735" y="760" width="130" height="50"/><text class="txt" x="800" y="785">order_detail</text>
+    <rect class="box" x="735" y="840" width="130" height="50"/><text class="txt" x="800" y="865">exchange_item</text>
+  </g>
+
+  <g>
+    <rect class="hub" x="1360" y="760" width="130" height="50"/><text class="hubtxt" x="1425" y="785">post</text>
+    <rect class="box" x="1150" y="760" width="130" height="50"/><text class="txt" x="1215" y="785">post_category</text>
+    <rect class="box" x="1150" y="840" width="130" height="50"/><text class="txt" x="1215" y="865">post_tag</text>
+  </g>
+
+  <g>
+    <rect class="box" x="945" y="760" width="130" height="50"/><text class="txt" x="1010" y="785">banner</text>
+    <rect class="box" x="735" y="760" width="130" height="50" opacity="0"/>
+    <rect class="box" x="735" y="940" width="130" height="50"/><text class="txt" x="800" y="965">contact</text>
+  </g>
+
+  <g>
+    <rect class="box" x="335" y="920" width="150" height="50"/><text class="txt" x="410" y="945">promotion_product</text>
+    <rect class="box" x="335" y="980" width="150" height="50"/><text class="txt" x="410" y="1005">promotion_variant</text>
+    <rect class="box" x="505" y="920" width="165" height="50"/><text class="txt" x="587" y="945">promotion_category</text>
+    <rect class="box" x="1360" y="920" width="165" height="50"/><text class="txt" x="1442" y="945">coupon_customer</text>
+    <rect class="box" x="1545" y="920" width="170" height="50"/><text class="txt" x="1630" y="945">post_category_map</text>
+    <rect class="box" x="1545" y="980" width="170" height="50"/><text class="txt" x="1630" y="1005">post_tag_map</text>
+  </g>
+
+  <path class="rel" d="M400 185 V920"/>
+  <path class="rel" d="M610 355 V900 H410 V920"/>
+  <path class="rel" d="M610 355 V980 H485"/>
+  <path class="rel" d="M610 185 V900 H587 V920"/>
+  <path class="rel" d="M1425 430 V920"/>
+  <path class="rel" d="M1425 270 V900 H1442 V920"/>
+  <path class="rel" d="M1425 810 V900 H1630 V920"/>
+  <path class="rel" d="M1215 810 V905 H1630 V920"/>
+  <path class="rel" d="M1425 810 V960 H1630 V980"/>
+  <path class="rel" d="M1215 890 V960 H1545"/>
+</svg>

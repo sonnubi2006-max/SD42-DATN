@@ -1,0 +1,12 @@
+.git
+.github
+.env
+.env.*
+**/.idea
+**/.vscode
+**/node_modules
+**/dist
+**/target
+**/uploads
+**/*.log
+be/src/main/resources/application.properties

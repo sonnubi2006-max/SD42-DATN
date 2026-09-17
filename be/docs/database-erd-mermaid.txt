@@ -1,0 +1,410 @@
+erDiagram
+    CUSTOMERS {
+        BIGINT customer_id PK
+        VARCHAR email UK
+        VARCHAR password
+        NVARCHAR full_name
+        VARCHAR phone
+        VARCHAR gender
+        DATE birthday
+        VARCHAR role
+        VARCHAR source
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    USERS {
+        BIGINT user_id PK
+        VARCHAR email UK
+        VARCHAR password
+        NVARCHAR full_name
+        VARCHAR role
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ADDRESSES {
+        BIGINT address_id PK
+        BIGINT customer_id FK
+        NVARCHAR recipient_name
+        VARCHAR phone
+        NVARCHAR address_line
+        VARCHAR province
+        VARCHAR district
+        VARCHAR ward
+        BOOLEAN is_default
+    }
+
+    CARTS {
+        BIGINT cart_id PK
+        BIGINT customer_id FK, UK
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    CART_ITEMS {
+        BIGINT cart_item_id PK
+        BIGINT cart_id FK
+        BIGINT variant_id FK
+        INT quantity
+        DATETIME created_at
+    }
+
+    WISHLISTS {
+        BIGINT wishlist_id PK
+        BIGINT customer_id FK
+        BIGINT variant_id FK
+        DATETIME created_at
+    }
+
+    REFRESH_TOKENS {
+        BIGINT id PK
+        BIGINT user_id FK
+        BIGINT customer_id FK
+        VARCHAR token UK
+        DATETIME expiry_date
+    }
+
+    CATEGORIES {
+        BIGINT category_id PK
+        VARCHAR name
+        VARCHAR slug UK
+        BOOLEAN active
+    }
+
+    BRANDS {
+        BIGINT brand_id PK
+        VARCHAR name
+        VARCHAR slug UK
+        BOOLEAN active
+    }
+
+    PRODUCTS {
+        BIGINT product_id PK
+        BIGINT category_id FK
+        BIGINT brand_id FK
+        VARCHAR name
+        VARCHAR slug UK
+        NVARCHAR description
+        BOOLEAN active
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    PRODUCT_VARIANTS {
+        BIGINT variant_id PK
+        BIGINT product_id FK
+        VARCHAR sku UK
+        VARCHAR color
+        VARCHAR size
+        DECIMAL price
+        INT stock_quantity
+        BOOLEAN active
+    }
+
+    PRODUCT_IMAGES {
+        BIGINT image_id PK
+        BIGINT product_id FK
+        BIGINT variant_id FK
+        VARCHAR image_url
+        BOOLEAN primary_image
+        INT display_order
+    }
+
+    COUPONS {
+        BIGINT coupon_id PK
+        VARCHAR code UK
+        VARCHAR discount_type
+        DECIMAL discount_value
+        DECIMAL minimum_order_value
+        DATETIME start_date
+        DATETIME end_date
+        BOOLEAN active
+    }
+
+    COUPON_CUSTOMERS {
+        BIGINT coupon_id PK, FK
+        BIGINT customer_id PK, FK
+    }
+
+    PROMOTIONS {
+        BIGINT promotion_id PK
+        VARCHAR name
+        VARCHAR discount_type
+        DECIMAL discount_value
+        DATETIME start_date
+        DATETIME end_date
+        BOOLEAN active
+    }
+
+    PROMOTION_CATEGORIES {
+        BIGINT promotion_id PK, FK
+        BIGINT category_id PK, FK
+    }
+
+    PROMOTION_PRODUCTS {
+        BIGINT promotion_id PK, FK
+        BIGINT product_id PK, FK
+    }
+
+    PROMOTION_VARIANTS {
+        BIGINT promotion_id PK, FK
+        BIGINT variant_id PK, FK
+    }
+
+    ORDERS {
+        BIGINT order_id PK
+        BIGINT customer_id FK
+        BIGINT coupon_id FK
+        BIGINT staff_id FK
+        VARCHAR order_code UK
+        VARCHAR order_type
+        VARCHAR status
+        DECIMAL subtotal
+        DECIMAL discount_amount
+        DECIMAL shipping_fee
+        DECIMAL total_amount
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ORDER_DETAILS {
+        BIGINT order_detail_id PK
+        BIGINT order_id FK
+        BIGINT variant_id FK
+        VARCHAR product_name
+        VARCHAR variant_name
+        INT quantity
+        DECIMAL unit_price
+        DECIMAL total_price
+    }
+
+    ORDER_ADDRESS {
+        BIGINT id PK
+        BIGINT order_id FK, UK
+        NVARCHAR recipient_name
+        VARCHAR phone
+        NVARCHAR full_address
+    }
+
+    PAYMENTS {
+        BIGINT payment_id PK
+        BIGINT order_id FK, UK
+        VARCHAR payment_method
+        VARCHAR payment_status
+        DECIMAL amount
+        VARCHAR transaction_code
+        DATETIME paid_at
+    }
+
+    RESERVATIONS {
+        BIGINT reservation_id PK
+        BIGINT order_id FK
+        BIGINT variant_id FK
+        INT quantity
+        VARCHAR status
+        DATETIME expires_at
+    }
+
+    ORDER_TRANSACTION_LOGS {
+        BIGINT id PK
+        BIGINT order_id FK
+        VARCHAR action
+        VARCHAR old_status
+        VARCHAR new_status
+        NVARCHAR note
+        DATETIME created_at
+    }
+
+    REVIEWS {
+        BIGINT review_id PK
+        BIGINT customer_id FK
+        BIGINT product_id FK
+        BIGINT variant_id FK
+        BIGINT order_detail_id FK, UK
+        INT rating
+        NVARCHAR comment
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    REVIEW_IMAGES {
+        BIGINT image_id PK
+        BIGINT review_id FK
+        VARCHAR image_url
+        INT display_order
+    }
+
+    RETURN_REQUESTS {
+        BIGINT return_id PK
+        BIGINT order_id FK
+        BIGINT created_by FK
+        BIGINT processed_by FK
+        VARCHAR status
+        NVARCHAR reason
+        DECIMAL refund_amount
+        DATETIME created_at
+        DATETIME processed_at
+    }
+
+    RETURN_ITEMS {
+        BIGINT return_item_id PK
+        BIGINT return_id FK
+        BIGINT variant_id FK
+        INT quantity
+        NVARCHAR reason
+    }
+
+    EXCHANGE_ITEMS {
+        BIGINT exchange_item_id PK
+        BIGINT return_id FK
+        BIGINT new_variant_id FK
+        INT quantity
+        DECIMAL price_difference
+    }
+
+    CONVERSATIONS {
+        BIGINT conversation_id PK
+        BIGINT customer_id FK
+        BIGINT staff_id FK
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    MESSAGES {
+        BIGINT message_id PK
+        BIGINT conversation_id FK
+        BIGINT customer_id FK
+        BIGINT user_id FK
+        NVARCHAR content
+        VARCHAR message_type
+        BOOLEAN is_read
+        DATETIME created_at
+    }
+
+    POSTS {
+        BIGINT post_id PK
+        BIGINT author_id FK
+        VARCHAR title
+        VARCHAR slug UK
+        NVARCHAR content
+        VARCHAR status
+        DATETIME published_at
+        DATETIME created_at
+    }
+
+    POST_CATEGORIES {
+        BIGINT post_category_id PK
+        VARCHAR name
+        VARCHAR slug UK
+    }
+
+    POST_CATEGORY_MAPPING {
+        BIGINT post_id PK, FK
+        BIGINT post_category_id PK, FK
+    }
+
+    POST_TAGS {
+        BIGINT tag_id PK
+        VARCHAR name
+        VARCHAR slug UK
+    }
+
+    POST_TAG_MAPPING {
+        BIGINT post_id PK, FK
+        BIGINT tag_id PK, FK
+    }
+
+    BANNERS {
+        BIGINT banner_id PK
+        VARCHAR title
+        VARCHAR image_url
+        VARCHAR target_url
+        INT display_order
+        BOOLEAN active
+    }
+
+    CONTACTS {
+        BIGINT contact_id PK
+        VARCHAR full_name
+        VARCHAR email
+        VARCHAR phone
+        NVARCHAR subject
+        NVARCHAR message
+        VARCHAR status
+        DATETIME created_at
+    }
+
+    PASSWORD_RESET_TOKENS {
+        BIGINT id PK
+        VARCHAR token UK
+        VARCHAR email
+        DATETIME expiry_date
+    }
+
+    CUSTOMERS ||--o{ ADDRESSES : "sở hữu"
+    CUSTOMERS ||--o| CARTS : "có"
+    CARTS ||--o{ CART_ITEMS : "chứa"
+    PRODUCT_VARIANTS ||--o{ CART_ITEMS : "được thêm vào"
+
+    CUSTOMERS ||--o{ WISHLISTS : "lưu"
+    PRODUCT_VARIANTS ||--o{ WISHLISTS : "được yêu thích"
+    CUSTOMERS ||--o{ REFRESH_TOKENS : "được cấp"
+    USERS ||--o{ REFRESH_TOKENS : "được cấp"
+
+    CATEGORIES ||--o{ PRODUCTS : "phân loại"
+    BRANDS ||--o{ PRODUCTS : "sở hữu thương hiệu"
+    PRODUCTS ||--|{ PRODUCT_VARIANTS : "có biến thể"
+    PRODUCTS ||--o{ PRODUCT_IMAGES : "có ảnh"
+    PRODUCT_VARIANTS ||--o| PRODUCT_IMAGES : "có ảnh riêng"
+
+    CUSTOMERS ||--o{ ORDERS : "đặt"
+    COUPONS o|--o{ ORDERS : "được áp dụng"
+    USERS o|--o{ ORDERS : "phụ trách"
+    ORDERS ||--|{ ORDER_DETAILS : "chứa"
+    PRODUCT_VARIANTS o|--o{ ORDER_DETAILS : "được đặt"
+    ORDERS ||--o| ORDER_ADDRESS : "giao tới"
+    ORDERS ||--o| PAYMENTS : "được thanh toán"
+    ORDERS ||--o{ RESERVATIONS : "giữ hàng"
+    PRODUCT_VARIANTS o|--o{ RESERVATIONS : "được giữ"
+    ORDERS ||--o{ ORDER_TRANSACTION_LOGS : "có lịch sử"
+
+    CUSTOMERS ||--o{ REVIEWS : "viết"
+    PRODUCTS ||--o{ REVIEWS : "nhận đánh giá"
+    PRODUCT_VARIANTS o|--o{ REVIEWS : "được đánh giá"
+    ORDER_DETAILS ||--o| REVIEWS : "xác thực mua hàng"
+    REVIEWS ||--o{ REVIEW_IMAGES : "đính kèm"
+
+    ORDERS ||--o{ RETURN_REQUESTS : "phát sinh"
+    USERS ||--o{ RETURN_REQUESTS : "tạo"
+    USERS o|--o{ RETURN_REQUESTS : "xử lý"
+    RETURN_REQUESTS ||--|{ RETURN_ITEMS : "chứa hàng trả"
+    PRODUCT_VARIANTS ||--o{ RETURN_ITEMS : "được trả"
+    RETURN_REQUESTS ||--o{ EXCHANGE_ITEMS : "chứa hàng đổi"
+    PRODUCT_VARIANTS ||--o{ EXCHANGE_ITEMS : "biến thể mới"
+
+    COUPONS ||--o{ COUPON_CUSTOMERS : "phân bổ"
+    CUSTOMERS ||--o{ COUPON_CUSTOMERS : "được nhận"
+
+    PROMOTIONS ||--o{ PROMOTION_CATEGORIES : "áp dụng"
+    CATEGORIES ||--o{ PROMOTION_CATEGORIES : "tham gia"
+    PROMOTIONS ||--o{ PROMOTION_PRODUCTS : "áp dụng"
+    PRODUCTS ||--o{ PROMOTION_PRODUCTS : "tham gia"
+    PROMOTIONS ||--o{ PROMOTION_VARIANTS : "áp dụng"
+    PRODUCT_VARIANTS ||--o{ PROMOTION_VARIANTS : "tham gia"
+
+    CUSTOMERS ||--o{ CONVERSATIONS : "khởi tạo"
+    USERS o|--o{ CONVERSATIONS : "hỗ trợ"
+    CONVERSATIONS ||--o{ MESSAGES : "chứa"
+    CUSTOMERS o|--o{ MESSAGES : "gửi"
+    USERS o|--o{ MESSAGES : "gửi"
+
+    USERS ||--o{ POSTS : "viết"
+    POSTS ||--o{ POST_CATEGORY_MAPPING : "được phân loại"
+    POST_CATEGORIES ||--o{ POST_CATEGORY_MAPPING : "chứa bài"
+    POSTS ||--o{ POST_TAG_MAPPING : "được gắn thẻ"
+    POST_TAGS ||--o{ POST_TAG_MAPPING : "gắn cho bài"

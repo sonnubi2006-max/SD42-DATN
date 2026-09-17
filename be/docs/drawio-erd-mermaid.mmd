@@ -1,0 +1,486 @@
+erDiagram
+    USERS {
+        BIGINT user_id PK
+        VARCHAR username UK
+        VARCHAR email UK
+        VARCHAR full_name
+        VARCHAR phone
+        VARCHAR role
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    CUSTOMERS {
+        BIGINT customer_id PK
+        VARCHAR email UK
+        VARCHAR password
+        VARCHAR full_name
+        VARCHAR phone
+        VARCHAR gender
+        DATE birthday
+        VARCHAR source
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ADDRESSES {
+        BIGINT address_id PK
+        BIGINT customer_id FK
+        VARCHAR receiver_name
+        VARCHAR receiver_phone
+        VARCHAR province
+        VARCHAR district
+        VARCHAR ward
+        VARCHAR street_address
+        INT ghn_district_id
+        VARCHAR ghn_ward_code
+        BOOLEAN is_default
+    }
+
+    REFRESH_TOKENS {
+        BIGINT id PK
+        BIGINT user_id FK
+        BIGINT customer_id FK
+        VARCHAR token UK
+        DATETIME expiry_date
+    }
+
+    PASSWORD_RESET_TOKENS {
+        BIGINT id PK
+        VARCHAR token UK
+        VARCHAR email
+        VARCHAR account_type
+        DATETIME expiry_date
+        BOOLEAN used
+    }
+
+    CATEGORIES {
+        BIGINT category_id PK
+        VARCHAR category_code UK
+        VARCHAR category_name
+        VARCHAR category_status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    BRANDS {
+        BIGINT brand_id PK
+        VARCHAR brand_code UK
+        VARCHAR brand_name
+        VARCHAR brand_logo
+        VARCHAR brand_status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    PRODUCTS {
+        BIGINT product_id PK
+        BIGINT category_id FK
+        BIGINT brand_id FK
+        VARCHAR product_code UK
+        VARCHAR product_name
+        VARCHAR product_slug UK
+        TEXT description
+        DECIMAL average_rating
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    PRODUCT_VARIANTS {
+        BIGINT variant_id PK
+        BIGINT product_id FK
+        BIGINT version
+        VARCHAR variant_code UK
+        VARCHAR barcode UK
+        VARCHAR size
+        VARCHAR color
+        DECIMAL price
+        INT stock_quantity
+        INT reserved_quantity
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    PRODUCT_IMAGES {
+        BIGINT image_id PK
+        BIGINT product_id FK
+        BIGINT variant_id FK
+        VARCHAR image_url
+        VARCHAR alt_text
+        INT display_order
+        BOOLEAN is_thumbnail
+    }
+
+    PROMOTIONS {
+        BIGINT promotion_id PK
+        VARCHAR name
+        VARCHAR discount_type
+        DECIMAL discount_value
+        DECIMAL max_discount_amount
+        VARCHAR apply_type
+        DATETIME start_date
+        DATETIME end_date
+        VARCHAR status
+    }
+
+    PROMOTION_CATEGORIES {
+        BIGINT promotion_id PK, FK
+        BIGINT category_id PK, FK
+    }
+
+    PROMOTION_PRODUCTS {
+        BIGINT promotion_id PK, FK
+        BIGINT product_id PK, FK
+    }
+
+    PROMOTION_VARIANTS {
+        BIGINT promotion_id PK, FK
+        BIGINT variant_id PK, FK
+    }
+
+    COUPONS {
+        BIGINT coupon_id PK
+        VARCHAR code UK
+        VARCHAR description
+        VARCHAR discount_type
+        DECIMAL discount_value
+        DECIMAL max_discount_amount
+        DECIMAL min_order_value
+        INT total_quantity
+        INT used_quantity
+        INT max_uses_per_user
+        DATETIME start_date
+        DATETIME end_date
+        VARCHAR coupon_type
+        VARCHAR status
+    }
+
+    COUPON_CUSTOMERS {
+        BIGINT coupon_id PK, FK
+        BIGINT customer_id PK, FK
+    }
+
+    CARTS {
+        BIGINT cart_id PK
+        BIGINT customer_id FK, UK
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    CART_ITEMS {
+        BIGINT cart_item_id PK
+        BIGINT cart_id FK
+        BIGINT variant_id FK
+        INT quantity
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    WISHLISTS {
+        BIGINT wishlist_id PK
+        BIGINT customer_id FK
+        BIGINT variant_id FK
+        DATETIME created_at
+    }
+
+    ORDERS {
+        BIGINT order_id PK
+        BIGINT customer_id FK "nullable for guest"
+        BIGINT coupon_id FK
+        BIGINT staff_id FK
+        VARCHAR order_code UK
+        VARCHAR coupon_code
+        VARCHAR order_type
+        VARCHAR payment_method
+        VARCHAR order_status
+        DECIMAL total_amount
+        DECIMAL discount_amount
+        DECIMAL shipping_fee
+        DECIMAL final_amount
+        TEXT note
+        DATETIME order_date
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    ORDER_DETAILS {
+        BIGINT order_detail_id PK
+        BIGINT order_id FK
+        BIGINT variant_id FK
+        VARCHAR product_name
+        VARCHAR size
+        VARCHAR color
+        INT quantity
+        INT damaged_quantity
+        DECIMAL price
+        DECIMAL sale_price
+        DECIMAL subtotal
+    }
+
+    ORDER_ADDRESS {
+        BIGINT order_address_id PK
+        BIGINT order_id FK, UK
+        VARCHAR receiver_name
+        VARCHAR receiver_phone
+        VARCHAR province
+        VARCHAR district
+        VARCHAR ward
+        VARCHAR detail_address
+        TEXT note
+    }
+
+    ORDER_TRANSACTION_LOGS {
+        BIGINT log_id PK
+        BIGINT order_id FK
+        VARCHAR previous_status
+        VARCHAR current_status
+        VARCHAR action
+        TEXT note
+        VARCHAR created_by
+        DATETIME created_at
+    }
+
+    PAYMENTS {
+        BIGINT payment_id PK
+        BIGINT order_id FK, UK
+        DECIMAL amount
+        VARCHAR payment_method
+        VARCHAR payment_status
+        VARCHAR transaction_code
+        VARCHAR bank_code
+        DECIMAL refunded_amount
+        DATETIME paid_at
+        DATETIME created_at
+    }
+
+    RESERVATIONS {
+        BIGINT reservation_id PK
+        BIGINT order_id FK
+        BIGINT variant_id FK
+        INT quantity
+        VARCHAR status
+        DATETIME expired_at
+        DATETIME created_at
+    }
+
+    RETURN_REQUESTS {
+        BIGINT return_id PK
+        BIGINT order_id FK
+        BIGINT created_by FK
+        BIGINT processed_by FK
+        BIGINT version
+        VARCHAR order_code
+        VARCHAR customer_name
+        VARCHAR customer_phone
+        VARCHAR return_type
+        VARCHAR status
+        DECIMAL refund_amount
+        TEXT note
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    RETURN_ITEMS {
+        BIGINT return_item_id PK
+        BIGINT return_id FK
+        BIGINT variant_id FK
+        INT quantity
+        INT damaged_quantity
+        DECIMAL original_price
+        DECIMAL refund_price
+        TEXT reason
+    }
+
+    EXCHANGE_ITEMS {
+        BIGINT exchange_item_id PK
+        BIGINT return_id FK
+        BIGINT new_variant_id FK
+        INT new_quantity
+        DECIMAL price_difference
+    }
+
+    REVIEWS {
+        BIGINT review_id PK
+        BIGINT customer_id FK
+        BIGINT product_id FK
+        BIGINT variant_id FK
+        BIGINT order_detail_id FK, UK
+        INT rating
+        TEXT comment
+        VARCHAR status
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    REVIEW_IMAGES {
+        BIGINT image_id PK
+        BIGINT review_id FK
+        VARCHAR image_url
+        INT display_order
+    }
+
+    CONTACTS {
+        BIGINT contact_id PK
+        VARCHAR name
+        VARCHAR email
+        VARCHAR phone
+        VARCHAR subject
+        TEXT message
+        VARCHAR status
+        DATETIME created_at
+    }
+
+    CONVERSATIONS {
+        BIGINT conversation_id PK
+        BIGINT customer_id FK
+        BIGINT staff_id FK
+        VARCHAR title
+        VARCHAR status
+        TEXT last_message
+        DATETIME last_message_at
+        DATETIME assigned_at
+        DATETIME closed_at
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    MESSAGES {
+        BIGINT message_id PK
+        BIGINT conversation_id FK
+        BIGINT customer_id FK
+        BIGINT user_id FK
+        BIGINT order_id FK
+        VARCHAR message_type
+        TEXT message_content
+        VARCHAR image_url
+        BOOLEAN is_read
+        DATETIME sent_at
+    }
+
+    CONVERSATION_ASSIGNMENTS {
+        BIGINT assignment_id PK
+        BIGINT conversation_id FK
+        BIGINT staff_id FK
+        BIGINT performed_by_id FK
+        VARCHAR action
+        TEXT notes
+        DATETIME created_at
+    }
+
+    BANNERS {
+        BIGINT banner_id PK
+        VARCHAR title
+        VARCHAR image_url
+        VARCHAR target_url
+        INT display_order
+        BOOLEAN active
+        DATETIME start_date
+        DATETIME end_date
+    }
+
+    POSTS {
+        BIGINT post_id PK
+        BIGINT author_id FK
+        VARCHAR title
+        VARCHAR slug UK
+        VARCHAR thumbnail
+        TEXT summary
+        TEXT content
+        VARCHAR status
+        INT view_count
+        DATETIME created_at
+        DATETIME updated_at
+    }
+
+    POST_CATEGORIES {
+        BIGINT post_category_id PK
+        VARCHAR name
+        VARCHAR slug UK
+    }
+
+    POST_TAGS {
+        BIGINT tag_id PK
+        VARCHAR name
+        VARCHAR slug UK
+    }
+
+    POST_CATEGORY_MAPPING {
+        BIGINT post_id PK, FK
+        BIGINT post_category_id PK, FK
+    }
+
+    POST_TAG_MAPPING {
+        BIGINT post_id PK, FK
+        BIGINT tag_id PK, FK
+    }
+
+    CUSTOMERS ||--o{ ADDRESSES : owns
+    USERS o|--o{ REFRESH_TOKENS : receives
+    CUSTOMERS o|--o{ REFRESH_TOKENS : receives
+
+    CATEGORIES o|--o{ PRODUCTS : classifies
+    BRANDS o|--o{ PRODUCTS : brands
+    PRODUCTS ||--o{ PRODUCT_VARIANTS : has
+    PRODUCTS ||--o{ PRODUCT_IMAGES : has
+    PRODUCT_VARIANTS o|--o| PRODUCT_IMAGES : represents
+
+    PROMOTIONS ||--o{ PROMOTION_CATEGORIES : targets
+    CATEGORIES ||--o{ PROMOTION_CATEGORIES : included_in
+    PROMOTIONS ||--o{ PROMOTION_PRODUCTS : targets
+    PRODUCTS ||--o{ PROMOTION_PRODUCTS : included_in
+    PROMOTIONS ||--o{ PROMOTION_VARIANTS : targets
+    PRODUCT_VARIANTS ||--o{ PROMOTION_VARIANTS : included_in
+
+    COUPONS ||--o{ COUPON_CUSTOMERS : assigned_to
+    CUSTOMERS ||--o{ COUPON_CUSTOMERS : receives
+
+    CUSTOMERS ||--o| CARTS : owns
+    CARTS ||--o{ CART_ITEMS : contains
+    PRODUCT_VARIANTS ||--o{ CART_ITEMS : selected_as
+    CUSTOMERS ||--o{ WISHLISTS : owns
+    PRODUCT_VARIANTS ||--o{ WISHLISTS : saved_as
+
+    CUSTOMERS o|--o{ ORDERS : places
+    COUPONS o|--o{ ORDERS : discounts
+    USERS o|--o{ ORDERS : handles
+    ORDERS ||--|{ ORDER_DETAILS : contains
+    PRODUCT_VARIANTS ||--o{ ORDER_DETAILS : sold_as
+    ORDERS ||--o| ORDER_ADDRESS : ships_to
+    ORDERS ||--o| PAYMENTS : paid_by
+    ORDERS ||--o{ RESERVATIONS : reserves
+    PRODUCT_VARIANTS ||--o{ RESERVATIONS : reserved_as
+    ORDERS ||--o{ ORDER_TRANSACTION_LOGS : records
+
+    ORDERS ||--o{ RETURN_REQUESTS : has
+    USERS o|--o{ RETURN_REQUESTS : created_by
+    USERS o|--o{ RETURN_REQUESTS : processed_by
+    RETURN_REQUESTS ||--o{ RETURN_ITEMS : contains
+    PRODUCT_VARIANTS ||--o{ RETURN_ITEMS : returned_as
+    RETURN_REQUESTS ||--o{ EXCHANGE_ITEMS : exchanges
+    PRODUCT_VARIANTS ||--o{ EXCHANGE_ITEMS : new_variant
+
+    CUSTOMERS ||--o{ REVIEWS : writes
+    PRODUCTS ||--o{ REVIEWS : receives
+    PRODUCT_VARIANTS ||--o{ REVIEWS : evaluates
+    ORDER_DETAILS ||--o| REVIEWS : verifies_purchase
+    REVIEWS ||--o{ REVIEW_IMAGES : has
+
+    CUSTOMERS ||--o{ CONVERSATIONS : starts
+    USERS o|--o{ CONVERSATIONS : handles
+    CONVERSATIONS ||--o{ MESSAGES : contains
+    CUSTOMERS o|--o{ MESSAGES : sends
+    USERS o|--o{ MESSAGES : sends
+    ORDERS o|--o{ MESSAGES : referenced_by
+    CONVERSATIONS ||--o{ CONVERSATION_ASSIGNMENTS : assignment_history
+    USERS o|--o{ CONVERSATION_ASSIGNMENTS : assigned_staff
+    USERS o|--o{ CONVERSATION_ASSIGNMENTS : performed_by
+
+    USERS ||--o{ POSTS : authors
+    POSTS ||--o{ POST_CATEGORY_MAPPING : categorized_by
+    POST_CATEGORIES ||--o{ POST_CATEGORY_MAPPING : contains
+    POSTS ||--o{ POST_TAG_MAPPING : tagged_by
+    POST_TAGS ||--o{ POST_TAG_MAPPING : contains
